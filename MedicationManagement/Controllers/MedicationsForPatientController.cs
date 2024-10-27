@@ -13,6 +13,7 @@ namespace MedicationManagement.Controllers
 {
     [ApiController]
     [Route("api/patient")]
+    [Authorize(Roles = "Patient")]
     public class MedicationsForPatientController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -23,8 +24,9 @@ namespace MedicationManagement.Controllers
         }
 
         // 1. Get a list of medications for the patient
-        [Authorize(Roles = "Patient")]
+        
         [HttpGet("For Patient")]
+        
         public IActionResult GetMedications([FromQuery] int patientID)
         {
             var requestPrescriptionData = (from r in _context.Requests
